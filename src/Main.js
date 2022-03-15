@@ -1,7 +1,11 @@
-import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import { useEffect, useState } from "react";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function Main({ activeNote, onUpdateNote }) {
+  const [value, setValue] = useState(!activeNote ? "" : activeNote.body);
+
   const onEditField = (key, value) => {
     onUpdateNote({
       ...activeNote,
@@ -10,8 +14,13 @@ function Main({ activeNote, onUpdateNote }) {
     });
   };
 
-  if (!activeNote)
-    return <div className="no-active-note">No note selected</div>;
+  useEffect(() => {
+    if (!!value) onEditField("body", value);
+  }, [value]);
+
+  useEffect(() => {
+    return () => setValue(activeNote.body);
+  }, [activeNote.id]);
 
   return (
     <div className="app-main">
@@ -21,21 +30,11 @@ function Main({ activeNote, onUpdateNote }) {
           type="text"
           value={activeNote.title}
           onChange={(e) => onEditField("title", e.target.value)}
+          placeholder="Unitited Note"
           autoFocus
         />
-        <textarea
-          id="body"
-          placeholder="Write your note here..."
-          value={activeNote.body}
-          onChange={(e) => onEditField("body", e.target.value)}
-        />
-      </div>
-
-      <div className="app-main-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview" remarkPlugins={[remarkGfm]}>
-          {activeNote.body}
-        </ReactMarkdown>
+        <ReactQuill theme="snow" value={value} onChange={(e) => setValue(e)} />
+        <br />
       </div>
     </div>
   );

@@ -58,15 +58,29 @@ button:hover {
   overflow-y: scroll;
 }
 .app-sidebar-note {
-  padding: 25px;
   cursor: pointer;
+  position: relative;
+}
+.app-sidebar-note-content {
+  padding: 25px;
 }
 .sidebar-note-title {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sidebar-note-title strong {
+  max-width: calc(100% - 70px);
+  margin-right: 20px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .app-sidebar-note button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
   color: crimson;
+  z-index: 100;
 }
 .app-sidebar-note p {
   margin: 10px 0;
@@ -90,11 +104,14 @@ button:hover {
 .app-main {
   width: 70%;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
+  /* padding-bottom: 100px; */
+  padding: 25px;
 }
-.app-main-note-edit,
-.app-main-note-preview {
-  height: 50vh;
+.app-main-note-edit {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .no-active-note {
@@ -108,7 +125,6 @@ button:hover {
 
 /* Editing */
 .app-main-note-edit {
-  padding: 25px;
 }
 
 .app-main-note-edit input,
@@ -133,6 +149,7 @@ textarea {
   border-top: 1px solid #ddd;
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.02);
+  margin-bottom: 100px;
 }
 
 .preview-title {
@@ -146,4 +163,46 @@ textarea {
   font-size: 1rem;
   line-height: 2rem;
   height: max-content;
+}
+
+.app-editor-wrapper {
+}
+.app-editor-toolbar {
+  border: 1px solid #ddd !important;
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  background-color: #fff;
+  /* border: 1px solid #000 !important; */
+}
+.rdw-option-wrapper {
+  width: 40px !important;
+  height: 40px !important;
+}
+.rdw-dropdown-wrapper {
+  height: 40px !important;
+}
+.rdw-dropdown-selectedtext {
+  min-width: 50px !important;
+}
+
+.app-editor-editor {
+  border: 1px solid #ddd;
+  min-height: 400px;
+  padding: 0 15px;
+  overflow: hidden !important;
+}
+
+.quill {
+  flex: 1;
+  padding-bottom: 50px !important;
+}
+.ql-container {
+  font-size: 16px !important;
+}
+.ql-toolbar {
+  position: sticky;
+  top: -27px;
+  z-index: 100;
+  background-color: #fff;
 }

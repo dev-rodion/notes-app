@@ -1,7 +1,7 @@
 import { useState } from "react";
 import uuid from "react-uuid";
 import "./App.css";
-import { getLocalNotes, setLocalNotes } from "./LocalStorage";
+import { deleteLocalNotes, getLocalNotes, setLocalNotes } from "./LocalStorage";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
@@ -12,23 +12,23 @@ function App() {
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
-      title: "Unitited Note",
+      title: "",
       body: "",
       lastModified: Date.now(),
     };
 
-    setNotes([newNote, ...notes]);
+    setNotes([newNote, ...notes]) && setLocalNotes(notes);
   };
 
   const onUpdateNote = (updateNote) => {
-    const updatedNotesArray = [];
-    notes.map((note) => {
+    const updatedNotesArray = notes.map((note) => {
       if (note.id !== activeNote) {
-        return updatedNotesArray.push(note);
+        return note;
       }
+      return updateNote;
     });
 
-    setNotes([updateNote, ...updatedNotesArray]);
+    setNotes(updatedNotesArray);
   };
 
   const onDeleteNote = (id) => {
@@ -36,13 +36,12 @@ function App() {
   };
 
   const getActiveNote = () => {
-    console.log(notes);
     return notes.find((note) => note.id === activeNote);
   };
 
-  window.onbeforeunload = function () {
+  window.addEventListener("beforeunload", () => {
     setLocalNotes(notes);
-  };
+  });
 
   return (
     <div className="App">
@@ -53,7 +52,9 @@ function App() {
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      {(!getActiveNote() && (
+        <div className="no-active-note">No note selected</div>
+      )) || <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />}
     </div>
   );
 }
