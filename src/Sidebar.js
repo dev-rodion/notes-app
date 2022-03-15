@@ -16,7 +16,9 @@ function Sidebar({
         {notes.map((note) => {
           return (
             <div
-              className={`app-sidebar-note ${note.id === activeNote && "active"}`}
+              className={`app-sidebar-note ${
+                note.id === activeNote && "active"
+              }`}
               key={note.id}
               onClick={() => setActiveNote(note.id)}
             >
@@ -27,13 +29,15 @@ function Sidebar({
 
               <p>{note.body && note.body.substring(0, 100) + "..."}</p>
 
-              <small className="note-meta">
-                Last modified{" "}
-                {new Date(note.lastModified).toLocaleDateString("en-GB", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </small>
+              {note.lastModified && (
+                <small className="note-meta">
+                  Last modified{" "}
+                  {new Date(note.lastModified).toLocaleDateString("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </small>
+              )}
             </div>
           );
         })}

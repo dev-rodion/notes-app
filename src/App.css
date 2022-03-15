@@ -90,6 +90,7 @@ button:hover {
 .app-main {
   width: 70%;
   height: 100vh;
+  overflow-y: scroll;
 }
 .app-main-note-edit,
 .app-main-note-preview {
@@ -140,7 +141,9 @@ textarea {
 }
 
 .markdown-preview {
+  display: block;
   padding: 0 25px 25px 25px;
   font-size: 1rem;
   line-height: 2rem;
+  height: max-content;
 }
