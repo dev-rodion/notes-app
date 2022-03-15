@@ -1,4 +1,5 @@
 import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 
 function Main({ activeNote, onUpdateNote }) {
   const onEditField = (key, value) => {
@@ -32,7 +33,7 @@ function Main({ activeNote, onUpdateNote }) {
 
       <div className="app-main-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">
+        <ReactMarkdown className="markdown-preview" remarkPlugins={[remarkGfm]}>
           {activeNote.body}
         </ReactMarkdown>
       </div>
