@@ -1,14 +1,36 @@
-function Main() {
+function Main({ activeNote, onUpdateNote }) {
+  const onEditField = (key, value) => {
+    onUpdateNote({
+      ...activeNote,
+      [key]: value,
+      lastModified: Date.now(),
+    });
+  };
+
+  if (!activeNote)
+    return <div className="no-active-note">No note selected</div>;
+
   return (
     <div className="app-main">
       <div className="app-main-note-edit">
-        <input id="title" type="text" autoFocus />
-        <textarea id="body" placeholder="Write your note here..." />
+        <input
+          id="title"
+          type="text"
+          value={activeNote.title}
+          onChange={(e) => onEditField("title", e.target.value)}
+          autoFocus
+        />
+        <textarea
+          id="body"
+          placeholder="Write your note here..."
+          value={activeNote.body}
+          onChange={(e) => onEditField("body", e.target.value)}
+        />
       </div>
 
       <div className="app-main-preview">
-        <h1 className="preview-title">TITLE</h1>
-        <div className="markdown-preview">note preview</div>
+        <h1 className="preview-title">{activeNote.title}</h1>
+        <div className="markdown-preview">{activeNote.body}</div>
       </div>
     </div>
   );
