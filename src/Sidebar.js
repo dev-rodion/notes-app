@@ -9,7 +9,6 @@ function Sidebar({
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>Notes App</h1>
-        <button onClick={onAddNote}>+ New Note</button>
       </div>
 
       <div className="app-sidebar-notes">
@@ -49,6 +48,10 @@ function Sidebar({
             );
           })}
       </div>
+
+      <button className="app-sidebar-new" onClick={onAddNote}>
+        + New Note
+      </button>
     </div>
   );
 }

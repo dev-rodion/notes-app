@@ -41,25 +41,40 @@ button:hover {
 .app-sidebar {
   width: 300px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
   border-right: 1px solid #ddd;
 }
 
 .app-sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px 15px;
+  text-align: center;
+  padding: 20px 15px;
+  border-bottom: 1px solid #ddd;
 }
 .app-sidebar-header h1 {
   margin: 0;
+  font-size: 30px;
 }
 
+.app-sidebar-new {
+  width: 100%;
+  font-weight: 600;
+  padding: 20px 0;
+  font-size: 1.2em;
+  background-color: #08c;
+  color: #fff;
+}
 .app-sidebar-notes {
-  height: calc(100vh - 78px);
+  flex: 1;
+  /* height: calc(100vh - 78px); */
   overflow-y: scroll;
 }
 .app-sidebar-note {
   cursor: pointer;
   position: relative;
+  border-bottom: 1px solid #ddd;
 }
 .app-sidebar-note-content {
   padding: 15px;
@@ -229,13 +244,6 @@ textarea {
 @media (max-width: 768px) {
   .app-sidebar {
     width: 200px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-  }
-  .app-sidebar-header h1 {
-    display: none;
   }
   .app-sidebar-header button {
     width: 100%;
@@ -243,10 +251,6 @@ textarea {
     padding: 15px 0;
     background-color: #08c;
     color: #fff;
-  }
-  .app-sidebar-header {
-    order: 1;
-    padding: 0;
   }
   .app-sidebar-notes {
     height: auto;
@@ -293,5 +297,18 @@ textarea {
   }
   .app-sidebar {
     width: 100%;
+    border: none;
+  }
+  .app-sidebar-note-content {
+    padding: 20px 15px;
+  }
+  .sidebar-note-title strong {
+    font-size: 100%;
+    max-width: calc(100% - 54px);
+  }
+  .app-sidebar-note button {
+    top: 20px;
+    right: 10px;
+    font-size: 100%;
   }
 }
