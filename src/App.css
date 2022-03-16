@@ -231,7 +231,7 @@ textarea {
 }
 .ql-toolbar {
   position: sticky;
-  top: -27px;
+  top: 0;
   z-index: 100;
   background-color: #fff;
 }
