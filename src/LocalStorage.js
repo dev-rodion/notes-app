@@ -3,12 +3,13 @@ export const setLocalNotes = (notes) => {
 };
 
 export const getLocalNotes = () => {
-  const result = localStorage.getItem("notes");
+  const result = JSON.parse(localStorage.getItem("notes"));
   const defaultResult = [];
 
-  if (result === "undefined") return defaultResult;
+  // if (result === "undefined" || result === "null") return defaultResult;
+  if (Array.isArray(result)) return result;
 
-  return JSON.parse(result);
+  return defaultResult;
 };
 
 export const deleteLocalNotes = () => {

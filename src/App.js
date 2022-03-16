@@ -1,7 +1,7 @@
 import { useState } from "react";
 import uuid from "react-uuid";
 import "./App.css";
-import { deleteLocalNotes, getLocalNotes, setLocalNotes } from "./LocalStorage";
+import { getLocalNotes, setLocalNotes } from "./LocalStorage";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
@@ -35,6 +35,12 @@ function App() {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
+  const onSaveNote = (id) => {
+    setActiveNote(false);
+    setLocalNotes(notes);
+    console.log("first");
+  };
+
   const getActiveNote = () => {
     return notes.find((note) => note.id === activeNote);
   };
@@ -54,7 +60,13 @@ function App() {
       />
       {(!getActiveNote() && (
         <div className="no-active-note">No note selected</div>
-      )) || <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />}
+      )) || (
+        <Main
+          activeNote={getActiveNote()}
+          onUpdateNote={onUpdateNote}
+          onSaveNote={onSaveNote}
+        />
+      )}
     </div>
   );
 }

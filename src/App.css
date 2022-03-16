@@ -39,7 +39,7 @@ button:hover {
 /* SIDEBAR STYLES */
 
 .app-sidebar {
-  width: 30%;
+  width: 300px;
   height: 100vh;
   border-right: 1px solid #ddd;
 }
@@ -47,7 +47,7 @@ button:hover {
 .app-sidebar-header {
   display: flex;
   justify-content: space-between;
-  padding: 25px;
+  padding: 25px 15px;
 }
 .app-sidebar-header h1 {
   margin: 0;
@@ -62,7 +62,7 @@ button:hover {
   position: relative;
 }
 .app-sidebar-note-content {
-  padding: 25px;
+  padding: 15px;
 }
 .sidebar-note-title {
   display: flex;
@@ -77,8 +77,8 @@ button:hover {
 }
 .app-sidebar-note button {
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 15px;
+  right: 15px;
   color: crimson;
   z-index: 100;
 }
@@ -102,20 +102,37 @@ button:hover {
 /* NOTE EDITOR/PREVIEW (MAIN) STYLES */
 
 .app-main {
-  width: 70%;
+  flex: 1;
   height: 100vh;
   overflow-y: auto;
-  /* padding-bottom: 100px; */
-  padding: 25px;
+  padding: 0 25px 25px;
 }
 .app-main-note-edit {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
-
+.app-main-header {
+  padding: 15px 0;
+}
+.app-main-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 10px 0;
+}
+.app-main-header button span {
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: 5px;
+}
+.app-main-header button svg {
+  width: 30px;
+  height: 30px;
+}
 .no-active-note {
-  width: 70%;
+  flex: 1;
   height: 100vh;
   line-height: 100vh;
   text-align: center;
@@ -124,9 +141,6 @@ button:hover {
 }
 
 /* Editing */
-.app-main-note-edit {
-}
-
 .app-main-note-edit input,
 textarea {
   display: block;
@@ -141,7 +155,8 @@ textarea {
 }
 .app-main-note-edit input {
   height: 50px;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 /* Preview */
@@ -165,8 +180,6 @@ textarea {
   height: max-content;
 }
 
-.app-editor-wrapper {
-}
 .app-editor-toolbar {
   border: 1px solid #ddd !important;
   position: sticky;
@@ -195,7 +208,8 @@ textarea {
 
 .quill {
   flex: 1;
-  padding-bottom: 50px !important;
+  display: flex;
+  flex-direction: column;
 }
 .ql-container {
   font-size: 16px !important;
@@ -205,4 +219,79 @@ textarea {
   top: -27px;
   z-index: 100;
   background-color: #fff;
+}
+.ql-container,
+.ql-editor {
+  flex: 1;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .app-sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+  .app-sidebar-header h1 {
+    display: none;
+  }
+  .app-sidebar-header button {
+    width: 100%;
+    font-weight: 600;
+    padding: 15px 0;
+    background-color: #08c;
+    color: #fff;
+  }
+  .app-sidebar-header {
+    order: 1;
+    padding: 0;
+  }
+  .app-sidebar-notes {
+    height: auto;
+    flex: 1;
+  }
+  .app-sidebar-note-content {
+    padding: 15px 10px 10px;
+  }
+  .sidebar-note-title strong {
+    font-size: 90%;
+    max-width: calc(100% - 54px);
+  }
+  .app-sidebar-note button {
+    top: 15px;
+    right: 10px;
+    font-size: 90%;
+  }
+  .app-main {
+    padding: 0 10px 15px;
+  }
+  .app-sidebar-note small {
+    font-size: 70%;
+  }
+  .app-main-note-edit input {
+    font-size: 1.2em;
+    height: 40px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 540px) {
+  .no-active-note {
+    display: none;
+  }
+  .app-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    height: auto;
+    background-color: #fff;
+  }
+  .app-sidebar {
+    width: 100%;
+  }
 }
