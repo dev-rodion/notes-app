@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import JoditEditor from "jodit-react";
+import { ReactComponent as SaveIcon } from "./assets/images/check-mark.svg";
+import { ReactComponent as DeleteIcon } from "./assets/images/trash.svg";
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
-function Main({ activeNote, onUpdateNote,onSaveNote }) {
-  const [value, setValue] = useState(!activeNote ? "" : activeNote.body);
-
+function Main({ activeNote, onUpdateNote, onSaveNote, onDeleteNote }) {
   const onEditField = (key, value) => {
     onUpdateNote({
       ...activeNote,
@@ -14,22 +12,27 @@ function Main({ activeNote, onUpdateNote,onSaveNote }) {
     });
   };
 
-  useEffect(() => {
-    if (!!value) onEditField("body", value);
-  }, [value]);
-
-  useEffect(() => {
-    return () => setValue(activeNote.body);
-  }, [activeNote.id]);
+  const config = {
+    readonly: false, // all options from https://xdsoft.net/jodit/doc/
+  };
 
   return (
     <div className="app-main">
       <div className="app-main-header">
-        <button onClick={() => onSaveNote(activeNote.id)}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 12.0001L8.94975 16.9499L19.5563 6.34326" stroke="#08c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        <button
+          className="app-main-save"
+          onClick={() => onSaveNote(activeNote.id)}
+        >
+          <SaveIcon />
           <span>Save</span>
+        </button>
+
+        <button
+          className="app-main-delete"
+          onClick={() => onDeleteNote(activeNote.id)}
+        >
+          <DeleteIcon />
+          <span>Delete</span>
         </button>
       </div>
       <div className="app-main-note-edit">
@@ -41,7 +44,12 @@ function Main({ activeNote, onUpdateNote,onSaveNote }) {
           placeholder="Unitited Note"
           autoFocus
         />
-        <ReactQuill theme="snow" value={value} onChange={(e) => setValue(e)} />
+        <JoditEditor
+          value={activeNote.body}
+          config={config}
+          tabIndex={1} // tabIndex of textarea
+          onBlur={(newContent) => onEditField("body", newContent)}
+        />
       </div>
     </div>
   );

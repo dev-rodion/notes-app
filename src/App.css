@@ -73,10 +73,7 @@ button:hover {
 }
 .app-sidebar-note {
   cursor: pointer;
-  position: relative;
   border-bottom: 1px solid #ddd;
-}
-.app-sidebar-note-content {
   padding: 15px;
 }
 .sidebar-note-title {
@@ -85,18 +82,10 @@ button:hover {
   margin-bottom: 10px;
 }
 .sidebar-note-title strong {
-  max-width: calc(100% - 70px);
-  margin-right: 20px;
   overflow: hidden;
   white-space: nowrap;
 }
-.app-sidebar-note button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  color: crimson;
-  z-index: 100;
-}
+
 .app-sidebar-note p {
   margin: 10px 0;
 }
@@ -125,9 +114,11 @@ button:hover {
 .app-main-note-edit {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
 }
 .app-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 15px 0;
 }
 .app-main-header button {
@@ -146,6 +137,15 @@ button:hover {
   width: 30px;
   height: 30px;
 }
+
+.app-main-delete {
+  color: crimson;
+}
+
+.app-main-delete:hover {
+  color: crimson;
+}
+
 .no-active-note {
   flex: 1;
   height: 100vh;
@@ -203,16 +203,6 @@ textarea {
   background-color: #fff;
   /* border: 1px solid #000 !important; */
 }
-.rdw-option-wrapper {
-  width: 40px !important;
-  height: 40px !important;
-}
-.rdw-dropdown-wrapper {
-  height: 40px !important;
-}
-.rdw-dropdown-selectedtext {
-  min-width: 50px !important;
-}
 
 .app-editor-editor {
   border: 1px solid #ddd;
@@ -221,24 +211,8 @@ textarea {
   overflow: hidden !important;
 }
 
-.quill {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.ql-container {
-  font-size: 16px !important;
-}
-.ql-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #fff;
-}
-.ql-container,
-.ql-editor {
-  flex: 1;
-  height: 100%;
+.jodit-wysiwyg {
+  min-height: 300px !important;
 }
 
 @media (max-width: 768px) {
@@ -261,15 +235,12 @@ textarea {
   }
   .sidebar-note-title strong {
     font-size: 90%;
-    max-width: calc(100% - 54px);
-  }
-  .app-sidebar-note button {
-    top: 15px;
-    right: 10px;
-    font-size: 90%;
   }
   .app-main {
     padding: 0 10px 15px;
+  }
+  .app-sidebar-note {
+    padding: 15px 10px;
   }
   .app-sidebar-note small {
     font-size: 70%;
@@ -294,6 +265,7 @@ textarea {
     z-index: 100;
     height: auto;
     background-color: #fff;
+    padding: 0 15px 15px;
   }
   .app-sidebar {
     width: 100%;
@@ -303,12 +275,6 @@ textarea {
     padding: 20px 15px;
   }
   .sidebar-note-title strong {
-    font-size: 100%;
-    max-width: calc(100% - 54px);
-  }
-  .app-sidebar-note button {
-    top: 20px;
-    right: 10px;
     font-size: 100%;
   }
 }

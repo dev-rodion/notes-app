@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import "./App.css";
 import { getLocalNotes, setLocalNotes } from "./LocalStorage";
@@ -16,19 +16,21 @@ function App() {
       body: "",
       lastModified: Date.now(),
     };
-
+    setActiveNote(newNote.id);
     setNotes([newNote, ...notes]) && setLocalNotes(notes);
   };
 
   const onUpdateNote = (updateNote) => {
-    const updatedNotesArray = notes.map((note) => {
+    const updatedNotesArray = [];
+
+    notes.map((note) => {
       if (note.id !== activeNote) {
-        return note;
+        updatedNotesArray.push(note);
       }
-      return updateNote;
+      return true;
     });
 
-    setNotes(updatedNotesArray);
+    setNotes([updateNote, ...updatedNotesArray]);
   };
 
   const onDeleteNote = (id) => {
@@ -38,7 +40,6 @@ function App() {
   const onSaveNote = (id) => {
     setActiveNote(false);
     setLocalNotes(notes);
-    console.log("first");
   };
 
   const getActiveNote = () => {
@@ -49,12 +50,17 @@ function App() {
     setLocalNotes(notes);
   });
 
+  const [pageHieght, setPageHieght] = useState("");
+
+  useEffect(() => {
+    setPageHieght(window.innerHeight + "px");
+  }, []);
+
   return (
-    <div className="App">
+    <div className="App" style={{ height: pageHieght }}>
       <Sidebar
         notes={notes}
         onAddNote={onAddNote}
-        onDeleteNote={onDeleteNote}
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
@@ -65,6 +71,7 @@ function App() {
           activeNote={getActiveNote()}
           onUpdateNote={onUpdateNote}
           onSaveNote={onSaveNote}
+          onDeleteNote={onDeleteNote}
         />
       )}
     </div>
